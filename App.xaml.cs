@@ -16,7 +16,7 @@ namespace Animals
         {
             App app = new App();
             MainWindow view = new MainWindow();
-            AnimalPresenter presenter = new(new NullAnimal(), view);
+            AnimalPresenter presenter = new(new Model(), view);
             app.Run(view);
         }
     }

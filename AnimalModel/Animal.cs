@@ -57,8 +57,16 @@ namespace AnimalModel
         public double AvgWeigth { get { return 0; } }
     }
 
-    public class AnimalEventArgs(IAnimal animal) : EventArgs
+    public class BaseAnimal : IAnimal
     {
-        public IAnimal Animal { get; set; } = animal;
+        public string Nameing { get; set; }
+
+        public int Legs { get; set; }
+
+        public IAnimal.EnumNutrition Nutrition { get; set; }
+
+        public double AvgLenght { get; set; }
+
+        public double AvgWeigth { get; set; }
     }
 }
