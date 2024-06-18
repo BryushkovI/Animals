@@ -33,6 +33,7 @@ namespace AnimalModel
         public void RemoveAnimal(string nameing)
         {
             context.Animals.Remove(context.Animals.Single(a => a.Nameing == nameing));
+            context.SaveChanges();
         }
 
         public void ChangeAnimal(string nameing, int legs, int nutrition, double avgLength, double avgWeigth)
@@ -45,6 +46,11 @@ namespace AnimalModel
 
             context.Animals.Update(animal);
             context.SaveChanges();
+        }
+
+        public List<IAnimal> GetAnimals()
+        {
+            return [.. context.Animals];
         }
     }
 }

@@ -21,12 +21,7 @@ namespace Animals.Presenter
         {
             this.model = model;
             this.view = view;
-            ObservableCollection<string> animals = new ObservableCollection<string>();
-            foreach (var item in model.Animals)
-            {
-                animals.Add(item.Nameing);
-            }
-            this.view.SetAnimals(animals);
+            this.view.SetAnimals(GetAnimalsList());
             this.view.AnimalSelected += View_AnimalSelected;
             this.view.AnimalUpdated += View_AnimalUpdated;
             this.view.AnimalRemoved += View_AnimalRemoved;
@@ -35,6 +30,7 @@ namespace Animals.Presenter
         private void View_AnimalRemoved(object? sender, View.EventsArgs.AnimalEventArgs e)
         {
             model.RemoveAnimal(e.Nameing);
+            view.SetAnimals(GetAnimalsList());
         }
 
         private void View_AnimalUpdated(object? sender, View.EventsArgs.AnimalEventArgs e)
@@ -50,6 +46,16 @@ namespace Animals.Presenter
                                   (int)model.Animal.Nutrition,
                                   model.Animal.AvgLenght,
                                   model.Animal.AvgWeigth);
+        }
+
+        private ObservableCollection<string> GetAnimalsList()
+        {
+            ObservableCollection<string> animals = [];
+            foreach (var item in model.GetAnimals())
+            {
+                animals.Add(item.Nameing);
+            }
+            return animals;
         }
     }
 }

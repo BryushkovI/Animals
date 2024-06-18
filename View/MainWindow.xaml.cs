@@ -38,6 +38,12 @@ namespace Animals
             this.nutrition.Text = nutrition.ToString();
             this.avgLength.Text = avgLength.ToString();
             this.avgWeigth.Text = avgWeigth.ToString();
+
+            this.nameing.IsEnabled = false;
+            this.legs.IsEnabled = false;
+            this.nutrition.IsEnabled = false;
+            this.avgLength.IsEnabled = false;
+            this.avgWeigth.IsEnabled = false;
         }
 
         public void SetAnimals(ObservableCollection<string> animals)
@@ -52,7 +58,50 @@ namespace Animals
 
         private void AnimalList_Selected(object sender, SelectionChangedEventArgs e)
         {
-            OnAnimalSelected(new AnimalEventArgs(e.AddedItems[0].ToString()));
+            try
+            {
+                OnAnimalSelected(new AnimalEventArgs(e.AddedItems[0].ToString()));
+                nameing.Text = string.Empty;
+                legs.Text = string.Empty;
+                nutrition.Text = string.Empty;
+                avgLength.Text = string.Empty;
+                avgWeigth.Text = string.Empty;
+            }
+            catch (Exception) { }
+            
+        }
+
+        private void MIChange_Click(object sender, RoutedEventArgs e)
+        {
+            legs.IsEnabled = true;
+            nutrition.IsEnabled = true;
+            avgLength.IsEnabled = true;
+            avgWeigth.IsEnabled = true;
+        }
+
+        protected virtual void OnAnimalRemoved(AnimalEventArgs e)
+        {
+            AnimalRemoved?.Invoke(this, e);
+        }
+
+        private void MIDelete_Click(object sender, RoutedEventArgs e)
+        {
+            OnAnimalRemoved(new AnimalEventArgs(nameing.Text));
+
+        }
+
+        protected virtual void OnAnimalChanged(AnimalEventArgs e)
+        {
+            AnimalUpdated?.Invoke(this, e);
+        }
+
+        private void MISave_Click(object sender, RoutedEventArgs e)
+        {
+            OnAnimalChanged(new AnimalEventArgs(nameing.Text, 
+                                                int.Parse(legs.Text),
+                                                int.Parse(nutrition.Text),
+                                                double.Parse(avgLength.Text),
+                                                double.Parse(avgWeigth.Text)));
         }
     }
 }

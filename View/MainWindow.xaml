@@ -7,23 +7,44 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="7*"/>
-        </Grid.ColumnDefinitions>
-        <ListView x:Name="animalList"
-                  Margin="5" Grid.Column="0" SelectionChanged="AnimalList_Selected"/>
-        <StackPanel Orientation="Horizontal"
-                    Margin="5" Grid.Column="1">
-            <StackPanel Orientation="Vertical" Width="250">
-                <TextBlock x:Name="nameing" Margin="2"/>
-                <TextBlock x:Name="nutrition" Margin="2"/>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Width="250">
-                <TextBlock x:Name="legs" Margin="2"/>
-                <TextBlock x:Name="avgLength" Margin="2"/>
-                <TextBlock x:Name="avgWeigth" Margin="2"/>
-            </StackPanel>
-        </StackPanel>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Управление">
+                    <MenuItem Header="Добавить">
+                        <MenuItem Header="Млекопитающее"/>
+                        <MenuItem Header="Земноводное"/>
+                        <MenuItem Header="Птица"/>
+                    </MenuItem>
+                    <MenuItem x:Name="MIChange" Header="Изменить" Click="MIChange_Click"/>
+                    <MenuItem x:Name="MIDelete" Header="Удалить" Click="MIDelete_Click" />
+                    <MenuItem x:Name="MISave" Header="Сохранить" Click="MISave_Click"/>
+                </MenuItem>
+            </Menu>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <ListView x:Name="animalList"
+                          Margin="5" Grid.Column="0" SelectionChanged="AnimalList_Selected"/>
+                <StackPanel Orientation="Horizontal"
+                            Margin="5" Grid.Column="1">
+                    <StackPanel Orientation="Vertical" Width="250">
+                        <TextBlock Text="Наименование:" Margin="2"/>
+                        <TextBox x:Name="nameing" Margin="2"/>
+                        <TextBlock Text="Тип питания:" Margin="2"/>
+                        <TextBox x:Name="nutrition" Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Width="250">
+                        <TextBlock Text="Количество лап:" Margin="2"/>
+                        <TextBox x:Name="legs" Margin="2"/>
+                        <TextBlock Text="Средняя длина:" Margin="2"/>
+                        <TextBox x:Name="avgLength" Margin="2"/>
+                        <TextBlock Text="Средний вес:" Margin="2"/>
+                        <TextBox x:Name="avgWeigth" Margin="2"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>

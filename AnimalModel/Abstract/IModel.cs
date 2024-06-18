@@ -20,5 +20,7 @@ namespace AnimalModel.Abstract
         public void RemoveAnimal(string nameing);
 
         public void ChangeAnimal(string nameing, int legs, int nutrition, double avgLength, double avgWeigth);
+
+        public List<IAnimal> GetAnimals();
     }
 }
