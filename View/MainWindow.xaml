@@ -12,7 +12,7 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <ListView x:Name="animalList"
-                  Margin="5" Grid.Column="0"/>
+                  Margin="5" Grid.Column="0" SelectionChanged="AnimalList_Selected"/>
         <StackPanel Orientation="Horizontal"
                     Margin="5" Grid.Column="1">
             <StackPanel Orientation="Vertical" Width="250">

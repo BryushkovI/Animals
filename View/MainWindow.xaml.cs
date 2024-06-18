@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Animals.View.Abstract;
+using Animals.View.EventsArgs;
 
 namespace Animals
 {
@@ -26,11 +27,15 @@ namespace Animals
             
         }
 
-        public void SetAnimalDetails(string nameing, int legs, string nutrition, double avgLength, double avgWeigth)
+        public event EventHandler<AnimalEventArgs> AnimalSelected;
+        public event EventHandler<AnimalEventArgs> AnimalUpdated;
+        public event EventHandler<AnimalEventArgs> AnimalRemoved;
+
+        public void SetAnimalDetails(string nameing, int legs, int nutrition, double avgLength, double avgWeigth)
         {
             this.nameing.Text = nameing;
             this.legs.Text = legs.ToString();
-            this.nutrition.Text = nutrition;
+            this.nutrition.Text = nutrition.ToString();
             this.avgLength.Text = avgLength.ToString();
             this.avgWeigth.Text = avgWeigth.ToString();
         }
@@ -38,6 +43,16 @@ namespace Animals
         public void SetAnimals(ObservableCollection<string> animals)
         {
             animalList.ItemsSource = animals;
+        }
+
+        protected virtual void OnAnimalSelected(AnimalEventArgs e)
+        {
+            AnimalSelected?.Invoke(this, e);
+        }
+
+        private void AnimalList_Selected(object sender, SelectionChangedEventArgs e)
+        {
+            OnAnimalSelected(new AnimalEventArgs(e.AddedItems[0].ToString()));
         }
     }
 }
