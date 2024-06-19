@@ -21,6 +21,11 @@ namespace Animals
     /// </summary>
     public partial class MainWindow : Window, IMainWindowView
     {
+        public Dictionary<int, string> Nutritions {  get; set; }
+        public Dictionary<int, string> Types { get; set; }
+
+        int animalType = -1;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,12 +35,14 @@ namespace Animals
         public event EventHandler<AnimalEventArgs> AnimalSelected;
         public event EventHandler<AnimalEventArgs> AnimalUpdated;
         public event EventHandler<AnimalEventArgs> AnimalRemoved;
+        public event EventHandler<AnimalEventArgs> AnimalCreated;
+        
 
-        public void SetAnimalDetails(string nameing, int legs, int nutrition, double avgLength, double avgWeigth)
+        public void SetAnimalDetails(string nameing, int legs, string nutrition, double avgLength, double avgWeigth)
         {
             this.nameing.Text = nameing;
             this.legs.Text = legs.ToString();
-            this.nutrition.Text = nutrition.ToString();
+            this.nutrition.SelectedItem = Nutritions.Single(n => n.Value == nutrition);
             this.avgLength.Text = avgLength.ToString();
             this.avgWeigth.Text = avgWeigth.ToString();
 
@@ -49,6 +56,7 @@ namespace Animals
         public void SetAnimals(ObservableCollection<string> animals)
         {
             animalList.ItemsSource = animals;
+            nutrition.ItemsSource = Nutritions;
         }
 
         protected virtual void OnAnimalSelected(AnimalEventArgs e)
@@ -61,13 +69,16 @@ namespace Animals
             try
             {
                 OnAnimalSelected(new AnimalEventArgs(e.AddedItems[0].ToString()));
+            }
+            catch (Exception)
+            {
                 nameing.Text = string.Empty;
                 legs.Text = string.Empty;
                 nutrition.Text = string.Empty;
                 avgLength.Text = string.Empty;
                 avgWeigth.Text = string.Empty;
             }
-            catch (Exception) { }
+            finally { animalType = -1; }
             
         }
 
@@ -87,7 +98,6 @@ namespace Animals
         private void MIDelete_Click(object sender, RoutedEventArgs e)
         {
             OnAnimalRemoved(new AnimalEventArgs(nameing.Text));
-
         }
 
         protected virtual void OnAnimalChanged(AnimalEventArgs e)
@@ -97,11 +107,47 @@ namespace Animals
 
         private void MISave_Click(object sender, RoutedEventArgs e)
         {
-            OnAnimalChanged(new AnimalEventArgs(nameing.Text, 
+            if (animalType == -1)
+            {
+                OnAnimalChanged(new AnimalEventArgs(nameing.Text,
                                                 int.Parse(legs.Text),
-                                                int.Parse(nutrition.Text),
+                                                Nutritions.Single(n => n.Key == nutrition.SelectedIndex).Value,
                                                 double.Parse(avgLength.Text),
                                                 double.Parse(avgWeigth.Text)));
+            }
+            else
+            {
+                OnAnimalCreated(new AnimalEventArgs(nameing.Text,
+                                                int.Parse(legs.Text),
+                                                Nutritions.Single(n => n.Key == nutrition.SelectedIndex).Value,
+                                                double.Parse(avgLength.Text),
+                                                double.Parse(avgWeigth.Text),
+                                                animalType));
+            }
+            
+        }
+
+        protected virtual void OnAnimalCreated(AnimalEventArgs e)
+        {
+            AnimalCreated?.Invoke(this, e);
+        }
+
+        private void MICrt_Click(object sender, RoutedEventArgs e)
+        {
+            nameing.IsEnabled = true;
+            legs.IsEnabled = true;
+            nutrition.IsEnabled = true;
+            avgLength.IsEnabled = true;
+            avgWeigth.IsEnabled = true;
+
+            nameing.Text = string.Empty;
+            legs.Text = string.Empty;
+            nutrition.Text = string.Empty;
+            avgLength.Text = string.Empty;
+            avgWeigth.Text = string.Empty;
+
+            MenuItem menuItem = e.Source as MenuItem;
+            animalType = Types.Single(t => t.Value == menuItem.Name).Key;
         }
     }
 }

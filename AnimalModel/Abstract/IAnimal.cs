@@ -8,8 +8,8 @@ namespace AnimalModel.Abstract
 {
     public interface IAnimal
     {
-        string Nameing { get; }
-        int Legs { get; }
+        string Nameing { get; set; }
+        int Legs { get; set; }
 
         enum EnumNutrition
         {
@@ -18,10 +18,10 @@ namespace AnimalModel.Abstract
             omnivorous
         }
 
-        EnumNutrition Nutrition { get; }
+        EnumNutrition Nutrition { get; set; }
 
-        double AvgLenght { get; }
+        double AvgLenght { get; set; }
 
-        double AvgWeigth { get; }
+        double AvgWeigth { get; set; }
     }
 }

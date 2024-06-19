@@ -10,7 +10,7 @@ namespace Animals.View.Abstract
 {
     interface IMainWindowView : IView
     {
-        void SetAnimalDetails(string nameing, int legs, int nutrition, double avgLength, double avgWeigth);
+        void SetAnimalDetails(string nameing, int legs, string nutrition, double avgLength, double avgWeigth);
 
         void SetAnimals(ObservableCollection<string> animals);
 
@@ -19,5 +19,11 @@ namespace Animals.View.Abstract
         event EventHandler<AnimalEventArgs> AnimalUpdated;
 
         event EventHandler<AnimalEventArgs> AnimalRemoved;
+
+        event EventHandler<AnimalEventArgs> AnimalCreated;
+
+        Dictionary<int, string> Nutritions { get; set; }
+
+        Dictionary<int, string> Types { get; set; }
     }
 }

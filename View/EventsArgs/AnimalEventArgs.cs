@@ -9,9 +9,10 @@ namespace Animals.View.EventsArgs
 {
     public class AnimalEventArgs : EventArgs
     {
+        public int Type { get; }
         public string Nameing { get; }
         public int Legs { get; }
-        public int Nutrition { get; }
+        public string Nutrition { get; }
 
         public double AvgLenght { get; }
 
@@ -20,13 +21,23 @@ namespace Animals.View.EventsArgs
         {
             Nameing= nameing;
         }
-        public AnimalEventArgs(string nameing, int legs, int nutrition, double avgLength, double avgWeigth)
+        public AnimalEventArgs(string nameing, int legs, string nutrition, double avgLength, double avgWeigth)
         {
             Nameing = nameing;
             Legs= legs;
             Nutrition= nutrition;
             AvgLenght= avgLength;
             AvgWeigth= avgWeigth;
+        }
+
+        public AnimalEventArgs(string nameing, int legs, string nutrition, double avgLength, double avgWeigth, int type = -1)
+        {
+            Nameing = nameing;
+            Legs = legs;
+            Nutrition = nutrition;
+            AvgLenght = avgLength;
+            AvgWeigth = avgWeigth;
+            Type = type;
         }
     }
 }

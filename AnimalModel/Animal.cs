@@ -1,4 +1,5 @@
 ﻿using AnimalModel.Abstract;
+
 namespace AnimalModel
 {
     public enum AnimalType
@@ -7,9 +8,8 @@ namespace AnimalModel
         amphibia,
         bird
     }
-    
 
-    public class Mammal(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : IAnimal
+    public class Mammal(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal
     {
         public string Nameing { get; } = nameing;
         public int Legs { get; } = legs;
@@ -21,7 +21,7 @@ namespace AnimalModel
         public double AvgWeigth { get; } = weigth;
     }
 
-    public class Amphibia(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : IAnimal
+    public class Amphibia(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal
     {
         public string Nameing { get; } = nameing;
         public int Legs { get; } = legs;
@@ -33,7 +33,7 @@ namespace AnimalModel
         public double AvgWeigth { get; } = weigth;
     }
 
-    internal class Bird(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : IAnimal
+    internal class Bird(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal
     {
         public string Nameing { get; } = nameing;
         public int Legs { get; } = legs;
@@ -45,7 +45,7 @@ namespace AnimalModel
         public double AvgWeigth { get; } = weigth;
     }
 
-    public class NullAnimal : IAnimal
+    public class NullAnimal : BaseAnimal
     {
         public string Nameing { get; } = "Ошибка природы";
         public int Legs { get { return 0; } }

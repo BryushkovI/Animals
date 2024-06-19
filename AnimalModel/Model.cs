@@ -25,6 +25,11 @@ namespace AnimalModel
             Animals = new ObservableCollection<IAnimal>(context.Animals.ToList());
         }
 
+        public void AddAnimal(string nameing, int legs, int nutrition, double avgLength, double avgWeigth)
+        {
+            
+        }
+
         public IAnimal GetAnimal(string nameing)
         {
             return context.Animals.Single(a => a.Nameing == nameing);
@@ -36,15 +41,25 @@ namespace AnimalModel
             context.SaveChanges();
         }
 
-        public void ChangeAnimal(string nameing, int legs, int nutrition, double avgLength, double avgWeigth)
+        public void ChangeAnimal(string nameing, int legs, int nutrition, double avgLength, double avgWeigth, int type = -1)
         {
-            var animal = context.Animals.Single(a => a.Nameing == nameing);
-            animal.Legs = legs;
-            animal.AvgLenght = avgLength;
-            animal.AvgWeigth = avgWeigth;
-            animal.Nutrition = (IAnimal.EnumNutrition)nutrition;
+            IAnimal animal;
+            try
+            {
+                animal = context.Animals.Single(a => a.Nameing == nameing);
+                animal.Legs = legs;
+                animal.AvgLenght = avgLength;
+                animal.AvgWeigth = avgWeigth;
+                animal.Nutrition = (IAnimal.EnumNutrition)nutrition;
 
-            context.Animals.Update(animal);
+                context.Animals.Update((BaseAnimal)animal);
+            }
+            catch (InvalidOperationException)
+            {
+                animal = AnimalFactory.CreateAnimal(nameing, (AnimalType)type, legs, (IAnimal.EnumNutrition)nutrition, avgLength, avgWeigth);
+                context.Animals.Add((BaseAnimal)animal);
+            }
+            
             context.SaveChanges();
         }
 

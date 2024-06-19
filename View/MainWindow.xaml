@@ -11,9 +11,9 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Управление">
                     <MenuItem Header="Добавить">
-                        <MenuItem Header="Млекопитающее"/>
-                        <MenuItem Header="Земноводное"/>
-                        <MenuItem Header="Птица"/>
+                        <MenuItem x:Name="mammal" Header="Млекопитающее" Click="MICrt_Click"/>
+                        <MenuItem x:Name="amphibia" Header="Земноводное" Click="MICrt_Click"/>
+                        <MenuItem x:Name="bird" Header="Птица" Click="MICrt_Click"/>
                     </MenuItem>
                     <MenuItem x:Name="MIChange" Header="Изменить" Click="MIChange_Click"/>
                     <MenuItem x:Name="MIDelete" Header="Удалить" Click="MIDelete_Click" />
@@ -33,7 +33,9 @@
                         <TextBlock Text="Наименование:" Margin="2"/>
                         <TextBox x:Name="nameing" Margin="2"/>
                         <TextBlock Text="Тип питания:" Margin="2"/>
-                        <TextBox x:Name="nutrition" Margin="2"/>
+                        <ComboBox x:Name="nutrition" Margin="2"
+                                  SelectedValuePath="Key" DisplayMemberPath="Value"/>
+                        
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Width="250">
                         <TextBlock Text="Количество лап:" Margin="2"/>

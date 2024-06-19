@@ -21,10 +21,23 @@ namespace Animals.Presenter
         {
             this.model = model;
             this.view = view;
+            this.view.Nutritions = this.model.Nutritions;
+            this.view.Types = this.model.Types;
             this.view.SetAnimals(GetAnimalsList());
             this.view.AnimalSelected += View_AnimalSelected;
             this.view.AnimalUpdated += View_AnimalUpdated;
             this.view.AnimalRemoved += View_AnimalRemoved;
+            this.view.AnimalCreated += View_AnimalCreated;
+        }
+
+        private void View_AnimalCreated(object? sender, View.EventsArgs.AnimalEventArgs e)
+        {
+            model.ChangeAnimal(e.Nameing,
+                               e.Legs,
+                               model.Nutritions.Single(n => n.Value == e.Nutrition).Key,
+                               e.AvgLenght,
+                               e.AvgWeigth,
+                               e.Type);
         }
 
         private void View_AnimalRemoved(object? sender, View.EventsArgs.AnimalEventArgs e)
@@ -35,7 +48,12 @@ namespace Animals.Presenter
 
         private void View_AnimalUpdated(object? sender, View.EventsArgs.AnimalEventArgs e)
         {
-            model.ChangeAnimal(e.Nameing, e.Legs, e.Nutrition, e.AvgLenght, e.AvgWeigth);
+
+            model.ChangeAnimal(e.Nameing,
+                               e.Legs, 
+                               model.Nutritions.Single(n => n.Value == e.Nutrition).Key, 
+                               e.AvgLenght, 
+                               e.AvgWeigth);
         }
 
         private void View_AnimalSelected(object? sender, View.EventsArgs.AnimalEventArgs e)
@@ -43,7 +61,7 @@ namespace Animals.Presenter
             model.Animal = model.GetAnimal(e.Nameing);
             view.SetAnimalDetails(model.Animal.Nameing,
                                   model.Animal.Legs,
-                                  (int)model.Animal.Nutrition,
+                                  model.Nutritions.Single(n => n.Key == (int)model.Animal.Nutrition).Value,
                                   model.Animal.AvgLenght,
                                   model.Animal.AvgWeigth);
         }
