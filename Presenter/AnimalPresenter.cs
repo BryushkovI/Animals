@@ -38,6 +38,7 @@ namespace Animals.Presenter
                                e.AvgLenght,
                                e.AvgWeigth,
                                e.Type);
+            view.SetAnimals(GetAnimalsList());
         }
 
         private void View_AnimalRemoved(object? sender, View.EventsArgs.AnimalEventArgs e)

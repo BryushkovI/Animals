@@ -9,64 +9,52 @@ namespace AnimalModel
         bird
     }
 
-    public class Mammal(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal
+    public class Mammal(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal(nameing, legs, nutrition, length, weigth)
     {
-        public string Nameing { get; } = nameing;
-        public int Legs { get; } = legs;
-
-        public IAnimal.EnumNutrition Nutrition { get; } = nutrition;
-
-        public double AvgLenght { get; } = length;
-
-        public double AvgWeigth { get; } = weigth;
     }
 
-    public class Amphibia(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal
+    public class Amphibia(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal(nameing, legs, nutrition, length, weigth)
     {
-        public string Nameing { get; } = nameing;
-        public int Legs { get; } = legs;
-
-        public IAnimal.EnumNutrition Nutrition { get; } = nutrition;
-
-        public double AvgLenght { get; } = length;
-
-        public double AvgWeigth { get; } = weigth;
     }
 
-    internal class Bird(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal
+    internal class Bird(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal(nameing, legs, nutrition, length, weigth)
     {
-        public string Nameing { get; } = nameing;
-        public int Legs { get; } = legs;
-
-        public IAnimal.EnumNutrition Nutrition { get; } = nutrition;
-
-        public double AvgLenght { get; } = length;
-
-        public double AvgWeigth { get; } = weigth;
     }
 
-    public class NullAnimal : BaseAnimal
+    public class NullAnimal(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth) : BaseAnimal(nameing, legs, nutrition, length, weigth)
     {
-        public string Nameing { get; } = "Ошибка природы";
-        public int Legs { get { return 0; } }
+        public override string Nameing { get => "Ошибка природы"; set => base.Nameing = "Ошибка природы"; }
+        public override int Legs { get => 0; set => base.Legs = 0; }
 
         public IAnimal.EnumNutrition Nutrition { get { return 0; } }
 
-        public double AvgLenght { get { return 0; } }
+        public override double AvgLenght { get => 0; set => base.AvgLenght = 0; }
 
-        public double AvgWeigth { get { return 0; } }
+        public override double AvgWeigth { get => 0; set => base.AvgWeigth = 0; }
     }
 
     public class BaseAnimal : IAnimal
     {
-        public string Nameing { get; set; }
+        public BaseAnimal()
+        {
+            
+        }
+        public BaseAnimal(string nameing, int legs, IAnimal.EnumNutrition nutrition, double length, double weigth)
+        {
+            Nameing = nameing;
+            Legs = legs;
+            Nutrition = nutrition;
+            AvgLenght = length;
+            AvgWeigth = weigth;
+        }
+        public virtual string Nameing { get; set; }
 
-        public int Legs { get; set; }
+        public virtual int Legs { get; set; }
 
         public IAnimal.EnumNutrition Nutrition { get; set; }
 
-        public double AvgLenght { get; set; }
+        public virtual double AvgLenght { get; set; }
 
-        public double AvgWeigth { get; set; }
+        public virtual double AvgWeigth { get; set; }
     }
 }

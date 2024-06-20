@@ -29,7 +29,11 @@ namespace Animals
         public MainWindow()
         {
             InitializeComponent();
-            
+            nameing.IsEnabled = false;
+            legs.IsEnabled = false;
+            nutrition.IsEnabled = false;
+            avgLength.IsEnabled = false;
+            avgWeigth.IsEnabled = false;
         }
 
         public event EventHandler<AnimalEventArgs> AnimalSelected;
@@ -123,6 +127,11 @@ namespace Animals
                                                 double.Parse(avgLength.Text),
                                                 double.Parse(avgWeigth.Text),
                                                 animalType));
+                nameing.IsEnabled = false;
+                legs.IsEnabled = false;
+                nutrition.IsEnabled = false;
+                avgLength.IsEnabled = false;
+                avgWeigth.IsEnabled = false;
             }
             
         }
