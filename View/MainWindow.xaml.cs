@@ -15,13 +15,13 @@ using Animals.View.EventsArgs;
 
 namespace Animals
 {
-    
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window, IMainWindowView
     {
-        public Dictionary<int, string> Nutritions {  get; set; }
+        public Dictionary<int, string> Nutritions { get; set; }
         public Dictionary<int, string> Types { get; set; }
 
         int animalType = -1;
@@ -40,7 +40,7 @@ namespace Animals
         public event EventHandler<AnimalEventArgs> AnimalUpdated;
         public event EventHandler<AnimalEventArgs> AnimalRemoved;
         public event EventHandler<AnimalEventArgs> AnimalCreated;
-        
+        public event EventHandler<SaverEventArgs> FileSaved;
 
         public void SetAnimalDetails(string nameing, int legs, string nutrition, double avgLength, double avgWeigth)
         {
@@ -83,7 +83,7 @@ namespace Animals
                 avgWeigth.Text = string.Empty;
             }
             finally { animalType = -1; }
-            
+
         }
 
         private void MIChange_Click(object sender, RoutedEventArgs e)
@@ -133,7 +133,7 @@ namespace Animals
                 avgLength.IsEnabled = false;
                 avgWeigth.IsEnabled = false;
             }
-            
+
         }
 
         protected virtual void OnAnimalCreated(AnimalEventArgs e)
@@ -157,6 +157,18 @@ namespace Animals
 
             MenuItem menuItem = e.Source as MenuItem;
             animalType = Types.Single(t => t.Value == menuItem.Name).Key;
+        }
+
+        public void OnFileSaved(SaverEventArgs e)
+        {
+            FileSaved?.Invoke(this, e);
+        }
+
+        private void Write_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem? menuItem = e.Source as MenuItem;
+
+            OnFileSaved(new($"{DateTime.Now.ToString("hh.mm.ss_dd.MM.yyyy")}",menuItem.Name));
         }
     }
 }

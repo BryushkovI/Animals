@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaverModel", "SaverModel\SaverModel.csproj", "{735F4FD0-C265-4582-8CF4-360110F59E3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{09184B6E-6378-4A61-8957-517D6938E95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09184B6E-6378-4A61-8957-517D6938E95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09184B6E-6378-4A61-8957-517D6938E95C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{735F4FD0-C265-4582-8CF4-360110F59E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{735F4FD0-C265-4582-8CF4-360110F59E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{735F4FD0-C265-4582-8CF4-360110F59E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{735F4FD0-C265-4582-8CF4-360110F59E3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

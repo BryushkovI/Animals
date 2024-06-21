@@ -1,4 +1,6 @@
 ﻿using AnimalModel.Abstract;
+using SaverModel.Abstract;
+using SaverModel.Writers;
 using Animals.View.Abstract;
 using Animals.View;
 using System;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Runtime.CompilerServices;
 using Microsoft.IdentityModel.Abstractions;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace Animals.Presenter
 {
@@ -28,6 +31,27 @@ namespace Animals.Presenter
             this.view.AnimalUpdated += View_AnimalUpdated;
             this.view.AnimalRemoved += View_AnimalRemoved;
             this.view.AnimalCreated += View_AnimalCreated;
+            this.view.FileSaved += View_FileSaved;
+        }
+
+        private void View_FileSaved(object? sender, View.EventsArgs.SaverEventArgs e)
+        {
+            IWriter writer = new NullWriter();
+            switch (e.FileType)
+            {
+                case "docx":
+                    writer = new DocWriter(GetAnimalsAsTable(model.GetAnimals()));
+                    break;
+                case "xlsx":
+                    writer = new XlsxWriter(GetAnimalsAsTable(model.GetAnimals()));
+                    break;
+                case "pdf":
+                    writer = new PdfWriter(GetAnimalsAsTable(model.GetAnimals()));
+                    break;
+                default:
+                    break;
+            }
+            writer.Write(e.FileName);
         }
 
         private void View_AnimalCreated(object? sender, View.EventsArgs.AnimalEventArgs e)
@@ -75,6 +99,26 @@ namespace Animals.Presenter
                 animals.Add(item.Nameing);
             }
             return animals;
+        }
+
+        
+
+        private string[,] GetAnimalsAsTable(List<IAnimal> animals)
+        {
+            string[,] result = new string[animals.Count, typeof(IAnimal).GetProperties().Length];
+
+            PropertyInfo[] properties = typeof(IAnimal).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            for (int i = 0; i < animals.Count; i++)
+            {
+                int j = 0;
+                for ( j = 0; j < properties.Length; j++)
+                {
+                    result[i, j] = properties[j].GetValue(animals[i]).ToString();
+                }
+                
+            }
+            return result;
         }
     }
 }

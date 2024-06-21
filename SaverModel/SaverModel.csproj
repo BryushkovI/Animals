@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.Cells" Version="24.6.0" />
+    <PackageReference Include="Aspose.PDF" Version="24.6.0" />
+    <PackageReference Include="Aspose.Words" Version="24.6.0" />
+  </ItemGroup>
+
+</Project>

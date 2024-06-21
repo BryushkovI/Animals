@@ -19,6 +19,11 @@
                     <MenuItem x:Name="MIDelete" Header="Удалить" Click="MIDelete_Click" />
                     <MenuItem x:Name="MISave" Header="Сохранить" Click="MISave_Click"/>
                 </MenuItem>
+                <MenuItem Header="Сохранить как">
+                    <MenuItem x:Name="docx" Header="DOCX" Click="Write_Click"/>
+                    <MenuItem x:Name="xlsx" Header="XLSX" Click="Write_Click"/>
+                    <MenuItem x:Name="pdf" Header="PDF" Click="Write_Click"/>
+                </MenuItem>
             </Menu>
             <Grid>
                 <Grid.ColumnDefinitions>

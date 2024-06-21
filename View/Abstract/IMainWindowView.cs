@@ -22,6 +22,8 @@ namespace Animals.View.Abstract
 
         event EventHandler<AnimalEventArgs> AnimalCreated;
 
+        event EventHandler<SaverEventArgs> FileSaved;
+
         Dictionary<int, string> Nutritions { get; set; }
 
         Dictionary<int, string> Types { get; set; }
