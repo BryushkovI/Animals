@@ -168,7 +168,7 @@ namespace Animals
         {
             MenuItem? menuItem = e.Source as MenuItem;
 
-            OnFileSaved(new($"{DateTime.Now.ToString("hh.mm.ss_dd.MM.yyyy")}",menuItem.Name));
+            OnFileSaved(new($"{DateTime.Now:hh.mm.ss_dd.MM.yyyy}",menuItem.Name));
         }
     }
 }

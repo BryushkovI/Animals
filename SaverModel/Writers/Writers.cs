@@ -89,7 +89,24 @@ namespace SaverModel.Writers
 
         public void Write(string name)
         {
+            FileName = name;
             var pdf = new Aspose.Pdf.Document();
+            Aspose.Pdf.Page page = pdf.Pages.Add();
+
+            Aspose.Pdf.Table table = new Aspose.Pdf.Table();
+            table.Border = new Aspose.Pdf.BorderInfo(Aspose.Pdf.BorderSide.All, .2f, Aspose.Pdf.Color.Black);
+            table.DefaultCellBorder = new Aspose.Pdf.BorderInfo(Aspose.Pdf.BorderSide.All, .2f, Aspose.Pdf.Color.Black);
+
+            for (int i = 0; i < Table.GetUpperBound(0) + 1; i++)
+            {
+                Aspose.Pdf.Row row =table.Rows.Add();
+                for (int j = 0; j < Table.GetUpperBound(1); j++)
+                {
+                    row.Cells.Add(Table[i, j]);
+                }
+            }
+            page.Paragraphs.Add(table);
+            pdf.Save(string.Format("{0}.{1}", FileName, Extension), Aspose.Pdf.SaveFormat.Pdf);
         }
     }
     internal class NullWriter : IWriter
